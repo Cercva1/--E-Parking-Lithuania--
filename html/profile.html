@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Profile — E-Parking</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
+</head>
+<body>
+  <div class="navbar"><div class="brand">E-Parking Lithuania</div></div>
+
+  <div class="container">
+    <div class="card-section" id="profileCard">
+      <h3 id="pf_name">Name</h3>
+      <div class="meta" id="pf_email">email</div>
+      <div style="margin-top:12px">
+        <button class="btn" onclick="toggleEdit()">Edit profile</button>
+        <button class="btn outline" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div id="editArea" style="display:none; margin-top:12px" class="card-section">
+      <h3>Edit profile</h3>
+      <input id="edit_name" class="input" placeholder="Name"/>
+      <input id="edit_email" class="input" placeholder="Email"/>
+      <div style="margin-top:8px; display:flex; gap:8px">
+        <button class="btn" onclick="saveProfile()">Save</button>
+        <button class="btn outline" onclick="toggleEdit()">Cancel</button>
+      </div>
+    </div>
+
+    <div style="margin-top:18px" class="card-section">
+      <h3>Security</h3>
+      <div class="meta">Change password (local demo)</div>
+      <input id="old_pass" class="input" placeholder="Old password" type="password" />
+      <input id="new_pass" class="input" placeholder="New password" type="password" />
+      <div style="margin-top:8px"><button class="btn" onclick="changePassword()">Change password</button></div>
+    </div>
+
+    <div style="margin-top:18px" class="card-section">
+      <h3>Theme</h3>
+      <div class="meta">Choose a theme for the site</div>
+      <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+        <button class="btn" onclick="applyAndSaveTheme('theme-eco')">Eco (Green)</button>
+        <button class="btn outline" onclick="applyAndSaveTheme('theme-black')">Black & White</button>
+        <button class="btn outline" onclick="applyAndSaveTheme('theme-purple')">Purple Premium</button>
+        <button class="btn outline" onclick="applyAndSaveTheme('theme-blue')">Light Blue</button>
+      </div>
+    </div>
+
+    <div class="footer">Profile data stored locally for demo purposes.</div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script>
+    function initProfile(){
+      const cur = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      if(!cur) { window.location.href = 'login.html'; return; }
+      document.getElementById('pf_name').textContent = cur.name;
+      document.getElementById('pf_email').textContent = cur.email;
+      document.getElementById('edit_name').value = cur.name;
+      document.getElementById('edit_email').value = cur.email;
+    }
+    function toggleEdit(){ const e = document.getElementById('editArea'); e.style.display = e.style.display === 'none' ? 'block' : 'none'; }
+    function saveProfile(){
+      const name = document.getElementById('edit_name').value.trim();
+      const email = document.getElementById('edit_email').value.trim();
+      if(!name || !email){ alert('Fill fields'); return; }
+      const cur = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      cur.name = name; cur.email = email; localStorage.setItem('currentUser', JSON.stringify(cur));
+      const reg = JSON.parse(localStorage.getItem('user') || 'null'); if(reg){ reg.name = name; reg.email = email; localStorage.setItem('user', JSON.stringify(reg)); }
+      initProfile(); toggleEdit();
+      alert('Saved (demo)');
+    }
+    function changePassword(){
+      const oldp = document.getElementById('old_pass').value;
+      const newp = document.getElementById('new_pass').value;
+      const reg = JSON.parse(localStorage.getItem('user') || 'null');
+      if(!reg){ alert('No user'); return; }
+      if(oldp !== reg.pass){ alert('Old password mismatch'); return; }
+      reg.pass = newp; localStorage.setItem('user', JSON.stringify(reg));
+      alert('Password changed (demo)');
+    }
+    function applyAndSaveTheme(name){ applyTheme(name); showToast('Theme applied'); }
+    initProfile();
+  </script>
+</body>
+</html>

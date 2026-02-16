@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">E-Parking Lithuania</div>
+    <div class="nav-small" id="userName">Guest</div>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <div class="summary">
+        <h1>Dashboard</h1>
+        <p>Browse parking places and prices. Click <strong>Book</strong> to open reservation window.</p>
+        <div style="margin-top:12px" class="row">
+          <button class="btn" onclick="location.href='profile.html'">Profile</button>
+          <button class="btn outline" onclick="location.href='book.html'">Open booking page</button>
+          <button class="btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Available parking places</h3>
+    <div id="placesGrid" class="grid"></div>
+
+    <h3 style="margin-top:20px">Your bookings</h3>
+    <div id="bookingList"></div>
+    <div class="footer">Demo system — no real payments processed.</div>
+  </div>
+
+  <!-- DETAILS modal -->
+  <div id="detailsBackdrop" class="modal-backdrop">
+    <div class="modal"><div style="display:flex; justify-content:space-between; align-items:center"><h3 id="detailsTitle"></h3><button onclick="showModal('detailsBackdrop', false)" class="btn outline">Close</button></div><div id="detailsBody" style="margin-top:10px"></div></div>
+  </div>
+
+  <!-- BOOKING modal -->
+  <div id="bookingBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div style="display:flex; justify-content:space-between; align-items:center">
+        <h3>Reserve — <span id="bk_placeName"></span></h3>
+        <button class="btn outline" onclick="showModal('bookingBackdrop', false)">Close</button>
+      </div>
+      <div class="meta" id="bk_city"></div>
+      <div style="margin-top:8px"><span id="bk_price"></span></div>
+      <input id="bk_placeId" type="hidden" />
+      <div class="field"><label>Date & time</label><input id="bk_time" type="datetime-local" class="input" /></div>
+      <div class="field"><label>Duration (hours)</label><input id="bk_duration" type="number" value="1" min="0.5" step="0.5" class="input" onchange="computeBookingPrice()" oninput="computeBookingPrice()"/></div>
+      <div class="field"><label>Car plate</label><input id="bk_plate" class="input" /></div>
+      <div class="field"><label>Payment method</label><select id="bk_method" class="input"></select></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px">
+        <div>Estimated total: <strong id="bk_total">0.00 €</strong></div>
+        <div style="display:flex; gap:8px">
+          <button class="btn" onclick="bookingConfirmNext()">Proceed</button>
+          <button class="btn outline" onclick="showModal('bookingBackdrop', false)">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT modal -->
+  <div id="paymentBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div style="display:flex; justify-content:space-between; align-items:center">
+        <h3>Card payment</h3>
+        <button class="btn outline" onclick="showModal('paymentBackdrop', false)">Close</button>
+      </div>
+      <div class="field"><label>Amount</label><div id="pay_amount" class="meta">0.00 €</div></div>
+      <div class="field"><label>Card</label><input id="card_number" class="input" placeholder="Card number (fake)"/></div>
+      <div class="field" style="display:flex; gap:8px"><input id="card_name" class="input" placeholder="Name on card"/><input id="card_exp" class="input" placeholder="MM/YY"/><input id="card_cvv" class="input" placeholder="CVV"/></div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:10px"><button class="btn" onclick="processCardPayment()">Pay</button></div>
+    </div>
+  </div>
+
+  <!-- BOOKING DETAILS modal -->
+  <div id="bookingDetailsBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div style="display:flex; justify-content:space-between; align-items:center"><h3>Booking details</h3><button class="btn outline" onclick="showModal('bookingDetailsBackdrop', false)">Close</button></div>
+      <div style="margin-top:8px">
+        <div><strong id="bd_place"></strong></div>
+        <div class="meta" id="bd_time"></div>
+        <div style="margin-top:8px">
+          <div>Duration: <span id="bd_duration"></span></div>
+          <div>Car: <span id="bd_plate"></span></div>
+          <div>Payment: <span id="bd_method"></span></div>
+          <div>Total: <span id="bd_total"></span></div>
+          <div>Status: <span id="bd_status"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANCEL modal -->
+  <div id="cancelBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <h3>Cancel booking</h3>
+      <p class="meta">To get a refund you must cancel at least <strong>1 hour</strong> before the booking start. Cancelling less than 1 hour before will not refund card payments.</p>
+      <input id="cancel_booking_id" type="hidden" />
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px"><button class="btn" onclick="performCancel()">Confirm cancel</button><button class="btn outline" onclick="showModal('cancelBackdrop', false)">Close</button></div>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/booking.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    dashboardInit();
+  </script>
+</body>
+</html>

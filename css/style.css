@@ -1,0 +1,319 @@
+/* ===============================
+   GLOBAL VARIABLES
+================================ */
+:root{
+  --bg: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --primary: #2bb673;
+  --accent: #10b981;
+  --shadow: rgba(16,24,40,0.08);
+  --radius: 14px;
+}
+
+/* ===============================
+   THEME OVERRIDES
+================================ */
+.theme-eco { --primary:#2bb673; --accent:#10b981; }
+.theme-black { --primary:#0b0b0b; --accent:#111827; }
+.theme-purple { --primary:#7c3aed; --accent:#a78bfa; }
+.theme-blue { --primary:#2563eb; --accent:#60a5fa; }
+
+/* ===============================
+   RESET
+================================ */
+*{ box-sizing:border-box }
+html,body{ height:100% }
+
+body{
+  margin:0;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+  from{ opacity:0; transform:translateY(10px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 40px;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(12px);
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.brand{
+  font-weight:800;
+  font-size:20px;
+  letter-spacing:-0.5px;
+}
+
+/* ===============================
+   CONTAINER
+================================ */
+.container{
+  width:min(1180px,94%);
+  margin:26px auto;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.btn{
+  background: linear-gradient(135deg,var(--primary), var(--accent));
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  font-size:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  transition:all 0.2s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.12);
+}
+
+.btn.outline{
+  background:transparent;
+  color:var(--primary);
+  border:1px solid rgba(0,0,0,0.08);
+  box-shadow:none;
+}
+
+/* ===============================
+   HERO / SUMMARY
+================================ */
+.hero{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  margin-bottom:16px;
+}
+
+.summary{
+  padding:28px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.9);
+  box-shadow:0 20px 40px rgba(0,0,0,0.06);
+}
+
+.summary h1{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.summary p{
+  font-size:15px;
+  color:var(--muted);
+}
+
+/* ===============================
+   GRID
+================================ */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+@media (max-width:1000px){
+  .grid{ grid-template-columns:repeat(2,1fr); }
+}
+
+@media (max-width:640px){
+  .grid{ grid-template-columns:1fr; }
+}
+
+/* ===============================
+   CARDS
+================================ */
+.card{
+  background:rgba(255,255,255,0.9);
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.06);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition:0.25s ease;
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,0.6);
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   BOOKING CARDS
+================================ */
+.booking-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.85);
+  border:1px solid rgba(0,0,0,0.04);
+  margin-top:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+  transition:0.2s ease;
+}
+
+.booking-card:hover{
+  transform:translateY(-3px);
+}
+
+/* ===============================
+   AUTH
+================================ */
+.auth-wrap{
+  min-height:calc(100vh - 120px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+}
+
+.auth-card{
+  width:460px;
+  padding:24px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.95);
+  box-shadow:0 30px 80px var(--shadow);
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,0.6);
+}
+
+/* ===============================
+   INPUTS
+================================ */
+.input{
+  width:100%;
+  padding:14px 16px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  font-size:14px;
+  transition:0.2s ease;
+}
+
+.input:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(43,182,115,0.15);
+}
+
+/* ===============================
+   MODALS
+================================ */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:500;
+  background:rgba(8,10,12,0.24);
+}
+
+.modal{
+  width:min(720px,94%);
+  background:rgba(255,255,255,0.98);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 40px 100px rgba(0,0,0,0.15);
+  transform:translateY(10px);
+  opacity:0;
+  transition:all 250ms ease;
+}
+
+.modal.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* ===============================
+   FORMS
+================================ */
+.field{ margin-bottom:12px; }
+
+.field label{
+  display:block;
+  margin-bottom:6px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid #eef2f5;
+}
+
+/* ===============================
+   HELPERS
+================================ */
+.row{ display:flex; gap:10px; align-items:center; }
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin:24px 0;
+}
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:var(--primary);
+  color:white;
+  padding:12px 16px;
+  border-radius:10px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.18);
+  display:none;
+  z-index:600;
+}
+
+.card-section{
+  background:#fff;
+  padding:16px;
+  border-radius:14px;
+  box-shadow:0 12px 30px var(--shadow);
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width:600px){
+  .summary h1{ font-size:20px; }
+  .btn{ width:100%; }
+  .row{ flex-direction:column; }
+}
+
+@media (max-width:460px){
+  .auth-card{ width:92%; }
+}

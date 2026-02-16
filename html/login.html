@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
+</head>
+<body>
+  <div class="navbar"><div class="brand">E-Parking Lithuania</div></div>
+
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h2>Sign in</h2>
+      <input id="email" class="input" placeholder="Email" />
+      <input id="password" class="input" placeholder="Password" type="password" />
+      <div style="margin-top:12px; display:flex; gap:8px">
+        <button class="btn" onclick="login()">Log in</button>
+        <button class="btn outline" onclick="location.href='register.html'">Register</button>
+      </div>
+      <p class="small-link" style="margin-top:10px; color:var(--muted)">Tip: register first (credentials saved locally).</p>
+    </div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+</body>
+</html>
